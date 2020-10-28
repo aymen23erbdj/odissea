@@ -2,11 +2,12 @@
 
 # Exemple invocació: ./update_app_from_parent.sh
 
-version=19.11.27
+version=20.10.28
 
 git clone https://github.com/projectestac/agora_moodle2.git moodle_new
 
 pushd moodle_new
+git checkout -b aws origin/aws
 git submodule update --recursive --init
 echo 'Submòduls actualitzats'
 read -p "Continuar? <prem una tecla> " -n 1 -r
@@ -14,33 +15,21 @@ echo    # (optional) move to a new line
 find . -name '\.git*' -exec rm -rf {} \;
 popd
 
+mv html html2
+mv moodle_new html
 
-mv html/moodle2 html/moodle2_old
-mv moodle_new html/moodle2
+cp html2/settings.php html/settings.php
+cp html2/.htaccess html/.htaccess
 
-cp html/moodle2_old/settings.php html/moodle2/settings.php
-cp html/moodle2_old/.htaccess html/moodle2/.htaccess
-cp html/moodle2_old/config-works-dist.php html/moodle2/config-works-dist.php
-cp html/moodle2_old/works.php html/moodle2/works.php
-cp html/moodle2_old/config-restricted-dist.php html/moodle2/config-restricted-dist.php
-cp html/moodle2_old/theme/xtec2/pix/favicon.ico html/moodle2/theme/xtec2/pix/favicon.ico
-cp html/moodle2_old/theme/xtec2/pix/logo_main.png html/moodle2/theme/xtec2/pix/logo_main.png
+cp html2/config.php html/config.php
+cp html2/CHANGES.txt html/CHANGES.txt
 
-cp html/moodle2_old/config.php html/moodle2/config.php
-cp html/moodle2_old/monitor.php html/moodle2/monitor.php
-cp html/moodle2_old/opcache.php html/moodle2/opcache.php
-cp html/moodle2_old/testapp.php html/moodle2/testapp.php
-cp html/moodle2_old/CHANGES.txt html/moodle2/CHANGES.txt
+cp -Rp html2/auth/odissea html/auth/odissea
+cp -Rp html2/blocks/configurable_reports html/blocks/configurable_reports
+cp -Rp html2/admin/tool/odisseagtafsync html/admin/tool/odisseagtafsync
 
-cp -Rp html/moodle2_old/testlib html/moodle2/testlib
-cp -Rp html/moodle2_old/auth/odissea html/moodle2/auth/odissea
-cp -Rp html/moodle2_old/blocks/configurable_reports html/moodle2/blocks/configurable_reports
-cp -Rp html/moodle2_old/admin/tool/odisseagtafsync html/moodle2/admin/tool/odisseagtafsync
+rm html/site-config.php
+rm html/config-mysql.php
+rm html/config-pgsql.php
 
-rm html/moodle2/site-config.php
-rm html/moodle2/config-mysql.php
-rm html/moodle2/config-oracle.php
-rm html/moodle2/config-pgsql.php
-rm html/moodle2/theme/xtec2/pix/logo_main.gif
-
-rm -Rf html/moodle2_old
+rm -Rf html2
