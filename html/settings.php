@@ -1,57 +1,76 @@
 <?php
 
-require_once(dirname(__FILE__) . '/local/agora/lib.php');
-
 get_debug();
 
-$dirroot = dirname(dirname(dirname(__FILE__)));
+$dirroot = dirname(dirname(__FILE__));
 
-$CFG->altcacheconfigpath = $dirroot.'/html/moodle2/local/agora/muc/';
+$CFG->altcacheconfigpath = $dirroot . '/html/local/agora/muc/';
+$CFG->agora_muc_path = $dirroot . '/localdata/odissea';
+$CFG->cachedir = $CFG->agora_muc_path . '/cache';
+$CFG->localcachedir = $CFG->agora_muc_path . '/localcache';
+$CFG->siteidentifier = 'odi_';
 
 $CFG->langotherroot = dirname(__FILE__) . '/langpacks/';
 $CFG->langlocalroot = dirname(__FILE__) . '/langpacks/';
-$CFG->skiplangupgrade  = true;
+$CFG->skiplangupgrade = true;
 $CFG->updateautocheck = false;
 $CFG->disableupdatenotifications = true;
 $CFG->disableupdateautodeploy = true;
 $CFG->disableonclickaddoninstall = true;
 
+$CFG->directorypermissions = 0777;
 
-$CFG->directorypermissions = 00777;  // try 02777 on a server in Safe Mode
-
-$CFG->alternateloginurl = '';
-$CFG->mymoodleredirect = 0;
-$CFG->isagora = 0;
-$CFG->iseoi = 0;
-$CFG->isportal = 0;
-$CFG->diskPercent = 0;
 $CFG->disableupdatenotifications = 1;
 $CFG->slasharguments = true;
 
-$CFG->session_handler_class = '\core\session\file';
-$CFG->session_file_save_path = ini_get('session.save_path');
+$CFG->session_handler_class = '\core\session\database';
+$CFG->session_database_acquire_lock_timeout = 120;
+$CFG->sessioncookie = $CFG->dbuser;
 
-//$CFG->apligestmail = 1;
-//$CFG->apligestlog = 1;
-//$CFG->apligestlogdebug = 1;
-//$CFG->apligestlogpath = $CFG->dataroot.'/repository/files/mailsender.log';
-$CFG->apligestaplic = 'ODISSEA';
+$CFG->isagora = false;
+$CFG->iseoi = false;
+$CFG->isodissea = true;
+$CFG->isalexandria = false;
 
-$CFG->agora_muc_path = $dirroot.'/cache_ins';
-$CFG->cachedir = $CFG->agora_muc_path.'/cache';
-$CFG->localcachedir = $CFG->agora_muc_path.'/localcache';
-$CFG->memcache_prefix = $CFG->siteidentifier = 'odi_';
+$CFG->passwordsaltmain = 'AbCdEfGhIn8Z5*43Sl5J&ly4pjJUk-b';
+$CFG->memcache_servers = '127.0.0.1';
+$CFG->memcache_prefix = 'odi_';
+$CFG->redis_servers = '127.0.0.1';
+$CFG->redis_prefix = 'odi_';
+
+$CFG->recaptchapublickey = '';
+$CFG->recaptchaprivatekey = '';
+
+// E-mail
+$CFG->smtphosts = '';
+$CFG->smtpuser = '';
+$CFG->smtppass = '';
+$CFG->noreplyaddress = '';
+$CFG->supportemail = '';
+$CFG->smtpsecure = 'tls';
+$CFG->smtpmaxbulk = 15;
+$CFG->digestmailtime = 1;
+$CFG->emailfromvia = 0;
+$CFG->mailheader = '[Odissea]';
+
+// This variable must be defined
+$CFG->apligestenv = '';
 
 // Change locking from NFS to DB
 $CFG->lock_factory = "\\core\\lock\\db_record_lock_factory";
 
-$CFG->mobilecssurl = $CFG->wwwroot.'/theme/xtec2/mobile/style.php';
-
-$CFG->forced_plugin_settings = array('block_configurable_reports' => array(
-                                        'sqlsecurity' => true,
-                                        'dbhost' => "",
-                                        'dbname' => "",
-                                        'dbuser' => "",
-                                        'dbpass' => ""),
-                                     'logstore_legacy' => array('loglegacy' => 1),
-                                     'filter_wiris' => array('uninstall' => 1));
+$CFG->forced_plugin_settings = [
+    'block_configurable_reports' => [
+        'sqlsecurity' => true,
+        'dbhost' => '',
+        'dbname' => '',
+        'dbuser' => '',
+        'dbpass' => '',
+    ],
+    'logstore_legacy' => [
+        'loglegacy' => 1,
+    ],
+    'filter_wiris' => [
+        'uninstall' => 1,
+    ],
+];
