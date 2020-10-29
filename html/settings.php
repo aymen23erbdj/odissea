@@ -32,21 +32,13 @@ $CFG->iseoi = false;
 $CFG->isodissea = true;
 $CFG->isalexandria = false;
 
-$CFG->passwordsaltmain = 'AbCdEfGhIn8Z5*43Sl5J&ly4pjJUk-b';
-$CFG->memcache_servers = '127.0.0.1';
 $CFG->memcache_prefix = 'odi_';
-$CFG->redis_servers = '127.0.0.1';
 $CFG->redis_prefix = 'odi_';
 
 $CFG->recaptchapublickey = '';
 $CFG->recaptchaprivatekey = '';
 
 // E-mail
-$CFG->smtphosts = '';
-$CFG->smtpuser = '';
-$CFG->smtppass = '';
-$CFG->noreplyaddress = '';
-$CFG->supportemail = '';
 $CFG->smtpsecure = 'tls';
 $CFG->smtpmaxbulk = 15;
 $CFG->digestmailtime = 1;
