@@ -63,7 +63,8 @@ function update_exec {
     if ! $1 > /dev/null
     then
         echo >&2 "ERROR: on $1"
-        exit -2
+
+        exit 0
     fi
 }
 

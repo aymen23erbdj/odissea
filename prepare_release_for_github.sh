@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$#" -ne 1 ] ; then
-    echo "Script per comprimir la release"
+    echo "Script to compress the release"
     echo "Forma d'ús: prepare_release.sh <version>"
     echo "Exemple invocació: ./prepare_release.sh 14.09.30"
     exit 0
